@@ -1,18 +1,21 @@
-# --- виртуальное окружение ---
+# --- virtual environment ---
 .venv/
 
-# --- кэш Python ---
+# --- Python cash ---
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# --- IDE и редакторы ---
+# --- IDE and redactors ---
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# --- системные файлы ---
+# --- system files ---
 .DS_Store
 Thumbs.db
+
+# --- data files ---
+*.csv
