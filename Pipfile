@@ -8,7 +8,6 @@ check50 = "*"
 submit50 = "*"
 style50 = "*"
 pygame = "*"
-libmagic = "*"
 
 [dev-packages]
 
