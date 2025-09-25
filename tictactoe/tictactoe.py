@@ -38,7 +38,14 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+    free_cells = []
+    size = len(board)
+    for i in range(size):
+        for j in range(size):
+            if board[i][j] is None:
+                free_cells.append((i, j))
+    return free_cells
 
 
 def result(board, action):
