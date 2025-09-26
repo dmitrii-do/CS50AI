@@ -85,6 +85,7 @@ def winner(board):
         return X
     if is_three_in_row(O, diagonal_left) or is_three_in_row(O, diagonal_right):
         return O
+    return
 
 
 # Check if three in row
