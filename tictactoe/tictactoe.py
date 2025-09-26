@@ -58,13 +58,40 @@ def result(board, action):
         raise ValueError("The action is not a valid action for the board.")
     return deepcopy(board)
 
+
 def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+    n = len(board)
+    # Check rows and columns
+    for i in range(n):
+        row = board[i]
+        if is_three_in_row(X, row):
+            return X
+        if is_three_in_row(O, row):
+            return O
+        column = [line[i] for line in board]
+        if is_three_in_row(X, column):
+            return X
+        if is_three_in_row(O, column):
+            return O
+        
+    # Check diagonals
+    diagonal_left = [board[i][i] for i in range(n)]
+    diagonal_right = [board[i][n-1-i] for i in range(n)]
+    if is_three_in_row(X, diagonal_left) or is_three_in_row(X, diagonal_right):
+        return X
+    if is_three_in_row(O, diagonal_left) or is_three_in_row(O, diagonal_right):
+        return O
 
 
+# Check if three in row
+def is_three_in_row(name, row):
+    return all(value == name for value in row)
+
+        
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
