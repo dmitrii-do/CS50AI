@@ -56,7 +56,10 @@ def result(board, action):
     # raise NotImplementedError
     if action not in actions(board):
         raise ValueError("The action is not a valid action for the board.")
-    return deepcopy(board)
+    new_board = deepcopy(board)
+    whose_move = player(board)
+    new_board[action] = whose_move
+    return new_board
 
 
 def winner(board):
@@ -77,7 +80,6 @@ def winner(board):
             return X
         if is_three_in_row(O, column):
             return O
-        
         
     # Check diagonals
     diagonal_left = [board[i][i] for i in range(n)]
@@ -111,9 +113,9 @@ def utility(board):
     # raise NotImplementedError
     res = winner(board)
     if res == X:
-            return 1
+        return 1
     if res == O:
-            return -1
+        return -1
     return 0
         
 
