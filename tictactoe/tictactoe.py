@@ -78,6 +78,7 @@ def winner(board):
         if is_three_in_row(O, column):
             return O
         
+        
     # Check diagonals
     diagonal_left = [board[i][i] for i in range(n)]
     diagonal_right = [board[i][n-1-i] for i in range(n)]
@@ -107,8 +108,14 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
-
+    # raise NotImplementedError
+    res = winner(board)
+    if res == X:
+            return 1
+    if res == O:
+            return -1
+    return 0
+        
 
 def minimax(board):
     """
