@@ -14,9 +14,7 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
 
 
 def player(board):
@@ -24,13 +22,7 @@ def player(board):
     Returns player who has the next turn on a board.
     """
     # raise NotImplementedError
-    cnt_x = cnt_o = 0
-    for cel in board:
-        if cel == X:
-            cnt_x += 1
-        elif cel == O:
-            cnt_o += 1
-    if cnt_x > cnt_o:
+    if sum(row.count(X) for row in board) > sum(row.count(O) for row in board):
         return O
     return X
 
@@ -81,10 +73,10 @@ def winner(board):
             return X
         if is_three_in_row(O, column):
             return O
-        
+
     # Check diagonals
     diagonal_left = [board[i][i] for i in range(n)]
-    diagonal_right = [board[i][n-1-i] for i in range(n)]
+    diagonal_right = [board[i][n - 1 - i] for i in range(n)]
     if is_three_in_row(X, diagonal_left) or is_three_in_row(X, diagonal_right):
         return X
     if is_three_in_row(O, diagonal_left) or is_three_in_row(O, diagonal_right):
@@ -96,7 +88,7 @@ def winner(board):
 def is_three_in_row(name, row):
     return all(value == name for value in row)
 
-        
+
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
@@ -118,10 +110,46 @@ def utility(board):
     if res == O:
         return -1
     return 0
-        
+
 
 def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+    move = None
+    if player(board) == X:
+        best = -math.inf
+        for action in actions(board):
+            value = max_value(result(board, action))
+            if value > best:
+                best = value
+                move = action
+        return move
+
+    if player(board) == O:
+        best = math.inf
+        for action in actions(board):
+            value = min_value(result(board, action))
+            if value < best:
+                best = value
+                move = action
+        return move
+
+
+def max_value(board):
+    if terminal(board):
+        return utility(board)
+    ans = -math.inf
+    for action in actions(board):
+        ans = max(ans, min_value(result(board, action)))
+    return ans
+
+
+def min_value(board):
+    if terminal(board):
+        return utility(board)
+    ans = math.inf
+    for action in actions(board):
+        ans = min(ans, max_value(result(board, action)))
+    return ans
