@@ -58,7 +58,8 @@ def result(board, action):
         raise ValueError("The action is not a valid action for the board.")
     new_board = deepcopy(board)
     whose_move = player(board)
-    new_board[action] = whose_move
+    i, j = action
+    new_board[i][j] = whose_move
     return new_board
 
 
