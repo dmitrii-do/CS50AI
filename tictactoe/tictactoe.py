@@ -32,12 +32,12 @@ def actions(board):
     Returns set of all possible actions (i, j) available on the board.
     """
     # raise NotImplementedError
-    free_cells = []
+    free_cells = set()
     size = len(board)
     for i in range(size):
         for j in range(size):
             if board[i][j] is None:
-                free_cells.append((i, j))
+                free_cells.add((i, j))
     return free_cells
 
 
@@ -94,7 +94,9 @@ def terminal(board):
     Returns True if game is over, False otherwise.
     """
     # raise NotImplementedError
-    if not actions(board) or winner(board):
+    if winner(board) is not None:
+        return True
+    if not actions(board):
         return True
     return False
 
@@ -117,23 +119,29 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     # raise NotImplementedError
+    if terminal(board):
+        return None
     move = None
     if player(board) == X:
         best = -math.inf
         for action in actions(board):
-            value = max_value(result(board, action))
+            value = min_value(result(board, action))
             if value > best:
                 best = value
                 move = action
+                if best == 1:
+                    return move
         return move
 
     if player(board) == O:
         best = math.inf
         for action in actions(board):
-            value = min_value(result(board, action))
+            value = max_value(result(board, action))
             if value < best:
                 best = value
                 move = action
+                if best == -1:
+                    return move
         return move
 
 
