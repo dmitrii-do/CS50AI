@@ -273,7 +273,7 @@ class MinesweeperAI:
                         continue
 
                     # Create a new sentence if sentence 1 is subset of sentence 2
-                    if sentence_1.cells.subset(sentence_2.cells):
+                    if sentence_1.cells.issubset(sentence_2.cells):
                         new_cells = sentence_2.cells - sentence_1.cells
                         new_count = sentence_2.count - sentence_1.count
 
@@ -308,7 +308,7 @@ class MinesweeperAI:
         """
         # raise NotImplementedError
 
-        board = set(itertools.product(range(self.height)), range(self.width))
+        board = set(itertools.product(range(self.height), range(self.width)))
         free_cells = board - self.mines - self.moves_made
         if free_cells:
             return random.choice(list(free_cells))
