@@ -306,4 +306,9 @@ class MinesweeperAI:
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        raise NotImplementedError
+        # raise NotImplementedError
+
+        board = set(itertools.product(range(self.height)), range(self.width))
+        free_cells = board - self.mines - self.moves_made
+        if free_cells:
+            return random.choice(list(free_cells))
