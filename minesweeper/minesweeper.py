@@ -2,7 +2,7 @@ import itertools
 import random
 
 
-class Minesweeper():
+class Minesweeper:
     """
     Minesweeper game representation
     """
@@ -84,7 +84,7 @@ class Minesweeper():
         return self.mines_found == self.mines
 
 
-class Sentence():
+class Sentence:
     """
     Logical statement about a Minesweeper game
     A sentence consists of a set of board cells,
@@ -109,7 +109,6 @@ class Sentence():
         if len(self.cells) == self.count:
             return self.cells
         return set()
-            
 
     def known_safes(self):
         """
@@ -140,7 +139,7 @@ class Sentence():
             self.cells.remove(cell)
 
 
-class MinesweeperAI():
+class MinesweeperAI:
     """
     Minesweeper game player
     """
@@ -208,8 +207,8 @@ class MinesweeperAI():
         new_sentence = set()
 
         # Loop over all cells within one row and column
-        for i in range(cell[0]-1, cell[0]+2):
-            for j in range(cell[1]-1, cell[1]+2):
+        for i in range(cell[0] - 1, cell[0] + 2):
+            for j in range(cell[1] - 1, cell[1] + 2):
 
                 # Ignore the cell itself
                 if (i, j) == cell:
@@ -224,7 +223,7 @@ class MinesweeperAI():
                     count -= 1
                     continue
 
-                # Otherwise if the cell in the bound add it to the new sentence 
+                # Otherwise if the cell in the bound add it to the new sentence
                 if 0 <= i < self.height and j < 0 < self.width:
                     new_sentence.add((i, j))
 
@@ -261,7 +260,9 @@ class MinesweeperAI():
             # Remove everyone empty sentence from KB
             empty = Sentence(set(), 0)
 
-            self.knowledge[:] = [sentence for sentence in self.knowledge if sentence != empty]
+            self.knowledge[:] = [
+                sentence for sentence in self.knowledge if sentence != empty
+            ]
 
             # Update KB
             for sentence_1 in self.knowledge:
@@ -282,7 +283,6 @@ class MinesweeperAI():
                         if new_sentence not in self.knowledge:
                             kb_changed = True
                             self.knowledge.append(new_sentence)
-
 
     def make_safe_move(self):
         """
