@@ -224,7 +224,7 @@ class MinesweeperAI:
                     continue
 
                 # Otherwise if the cell in the bound add it to the new sentence
-                if 0 <= i < self.height and j < 0 < self.width:
+                if 0 <= i < self.height and 0 <= j < self.width:
                     new_sentence.add((i, j))
 
         #  Add the new sentence to the AI's KB
@@ -297,7 +297,7 @@ class MinesweeperAI:
 
         safe_moves = self.safes - self.moves_made
         if safe_moves:
-            return random.choice(safe_moves)
+            return random.choice(list(safe_moves))
 
     def make_random_move(self):
         """
