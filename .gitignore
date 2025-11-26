@@ -20,3 +20,7 @@ Thumbs.db
 # --- data files ---
 *.csv
 *.txt
+
+# --- temporary files ---
+temp.py
+tmp.py
