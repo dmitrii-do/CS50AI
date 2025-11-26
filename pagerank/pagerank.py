@@ -41,8 +41,7 @@ def crawl(directory):
     # Only include links to other pages in the corpus
     for filename in pages:
         pages[filename] = set(
-            link for link in pages[filename]
-            if link in pages
+            link for link in pages[filename] if link in pages
         )
 
     return pages
@@ -57,7 +56,29 @@ def transition_model(corpus, page, damping_factor):
     linked to by `page`. With probability `1 - damping_factor`, choose
     a link at random chosen from all pages in the corpus.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    # Use multiply 10_000 to avoid float problems
+    # Get probabilities for damping_factor and for 1 - damping_factor
+    probability_corpus = int((1 - damping_factor) * 10_000 / len(corpus))
+    links_probability = 0
+    if corpus[page]:
+        links_probability = int(damping_factor * 10_000 / len(corpus[page]))
+
+    # Get probability distribution
+    distribution = {}
+
+    for link in corpus:
+        distribution[link] = (
+            distribution.get(link, 0) * 10_000 + probability_corpus
+        ) / 10_000
+        if link == page:
+            for l in corpus[page]:
+                distribution[l] = (
+                    distribution.get(l, 0) * 10_000 + links_probability
+                ) / 10_000
+
+    return distribution
 
 
 def sample_pagerank(corpus, damping_factor, n):
