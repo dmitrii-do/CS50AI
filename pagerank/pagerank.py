@@ -101,12 +101,12 @@ def sample_pagerank(corpus, damping_factor, n):
 
     # For each of the remaining samples, the next sample should be generated from the previous sample based on the previous sample’s transition model.
     for _ in range(n - 1):
-        # Get the list of probabilities from transition model
+        # Get the dictionary of probabilities with the transition model
         probabilities = transition_model(corpus, page, damping_factor)
 
         # Pick a next page
         page = random.choices(
-            list(probabilities.keys()), probabilities.values()
+            list(probabilities.keys()), list(probabilities.values())
         )[0]
 
         # Change the number of page visits
