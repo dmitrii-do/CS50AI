@@ -102,12 +102,12 @@ def sample_pagerank(corpus, damping_factor, n):
     # For each of the remaining samples, the next sample should be generated from the previous sample based on the previous sample’s transition model.
     for _ in range(n - 1):
         # Get the list of probabilities from transition model
-        probabilities = list(
-            transition_model(corpus, page, damping_factor).values()
-        )
+        probabilities = transition_model(corpus, page, damping_factor)
 
         # Pick a next page
-        page = random.choices(list(corpus.keys()), probabilities)[0]
+        page = random.choices(
+            list(probabilities.keys()), probabilities.values()
+        )[0]
 
         # Change the number of page visits
         visits[page] += 1
@@ -127,7 +127,7 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
 
 
 if __name__ == "__main__":
