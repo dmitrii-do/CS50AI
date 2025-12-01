@@ -58,25 +58,16 @@ def transition_model(corpus, page, damping_factor):
     """
     # raise NotImplementedError
 
-    # Use multiply 10_000 to avoid float problems
-    # Get probabilities for damping_factor and for 1 - damping_factor
-    probability_corpus = int((1 - damping_factor) * 10_000 / len(corpus))
-    links_probability = 0
+    # Initialize a distribution of probabilities dictionary with an equal probability
+    eq_prob = (1 - damping_factor) / len(corpus)
+    distribution = {page: eq_prob for page in corpus.keys()}
+
+    # Get probabilities for links of the page if the page has them
     if corpus[page]:
-        links_probability = int(damping_factor * 10_000 / len(corpus[page]))
-
-    # Get probability distribution
-    distribution = {}
-
-    for link in corpus:
-        distribution[link] = (
-            distribution.get(link, 0) * 10_000 + probability_corpus
-        ) / 10_000
-        if link == page:
-            for l in corpus[page]:
-                distribution[l] = (
-                    distribution.get(l, 0) * 10_000 + links_probability
-                ) / 10_000
+        links = corpus[page]
+        link_prob = damping_factor / len(links)
+        for link in links:
+            distribution[link] += link_prob
 
     return distribution
 
