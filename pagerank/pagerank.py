@@ -120,6 +120,46 @@ def iterate_pagerank(corpus, damping_factor):
     """
     # raise NotImplementedError
 
+    # Specified accuracy
+    ACCURACY = 0.001
+
+    N = len(corpus)
+    random_rank = (1 - damping_factor) / N
+
+    # Initialize the initial page rank dictionaries
+    init_rank = 1 / N
+    page_ranks = {page: init_rank for page in corpus}
+
+    # Loop until the accuracy not enough
+    while True:
+        # Create iter_ranks dictionary for page ranks in the current iteration
+        iter_ranks = {page: random_rank for page in corpus}
+
+        # Change values of iter_ranks
+        for page in corpus:
+            if corpus[page]:
+                share = damping_factor * page_ranks[page] / len(corpus[page])
+                for link in corpus[page]:
+                    iter_ranks[link] += share
+            else:
+                share = damping_factor * page_ranks[page] / N
+                for link in corpus:
+                    iter_ranks[link] += share
+
+        # Calculate divergence between page_ranks and iter_ranks
+        diff = max(
+            abs(iter_ranks[page] - page_ranks[page]) for page in page_ranks
+        )
+
+        # Update page_ranks into iter_ranks
+        page_ranks = iter_ranks
+
+        # Check accuracy
+        if diff < ACCURACY:
+            break
+
+    return page_ranks
+
 
 if __name__ == "__main__":
     main()
