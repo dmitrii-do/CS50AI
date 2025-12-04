@@ -3,37 +3,18 @@ import itertools
 import sys
 
 PROBS = {
-
     # Unconditional probabilities for having gene
-    "gene": {
-        2: 0.01,
-        1: 0.03,
-        0: 0.96
-    },
-
+    "gene": {2: 0.01, 1: 0.03, 0: 0.96},
     "trait": {
-
         # Probability of trait given two copies of gene
-        2: {
-            True: 0.65,
-            False: 0.35
-        },
-
+        2: {True: 0.65, False: 0.35},
         # Probability of trait given one copy of gene
-        1: {
-            True: 0.56,
-            False: 0.44
-        },
-
+        1: {True: 0.56, False: 0.44},
         # Probability of trait given no gene
-        0: {
-            True: 0.01,
-            False: 0.99
-        }
+        0: {True: 0.01, False: 0.99},
     },
-
     # Mutation probability
-    "mutation": 0.01
+    "mutation": 0.01,
 }
 
 
@@ -46,17 +27,7 @@ def main():
 
     # Keep track of gene and trait probabilities for each person
     probabilities = {
-        person: {
-            "gene": {
-                2: 0,
-                1: 0,
-                0: 0
-            },
-            "trait": {
-                True: 0,
-                False: 0
-            }
-        }
+        person: {"gene": {2: 0, 1: 0, 0: 0}, "trait": {True: 0, False: 0}}
         for person in people
     }
 
@@ -66,8 +37,10 @@ def main():
 
         # Check if current set of people violates known information
         fails_evidence = any(
-            (people[person]["trait"] is not None and
-             people[person]["trait"] != (person in have_trait))
+            (
+                people[person]["trait"] is not None
+                and people[person]["trait"] != (person in have_trait)
+            )
             for person in names
         )
         if fails_evidence:
@@ -110,8 +83,11 @@ def load_data(filename):
                 "name": name,
                 "mother": row["mother"] or None,
                 "father": row["father"] or None,
-                "trait": (True if row["trait"] == "1" else
-                          False if row["trait"] == "0" else None)
+                "trait": (
+                    True
+                    if row["trait"] == "1"
+                    else False if row["trait"] == "0" else None
+                ),
             }
     return data
 
@@ -122,7 +98,8 @@ def powerset(s):
     """
     s = list(s)
     return [
-        set(s) for s in itertools.chain.from_iterable(
+        set(s)
+        for s in itertools.chain.from_iterable(
             itertools.combinations(s, r) for r in range(len(s) + 1)
         )
     ]
@@ -139,7 +116,78 @@ def joint_probability(people, one_gene, two_genes, have_trait):
         * everyone in set `have_trait` has the trait, and
         * everyone not in set` have_trait` does not have the trait.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    # Initialize probability prob = 1
+    prob = 1
+
+    # loop everyone person in people
+    for person in people:
+        # Get the number of genes the person has
+        genes = get_genes(person, one_gene, two_genes)
+
+        # Determine if the person has the trait
+        has_trait = person in have_trait
+
+        mother = people[person]["mother"]
+        father = people[person]["father"]
+
+        # Calculate parents' probability
+        # The person hasn't got the parents
+        if mother is None and father is None:
+            p_genes = PROBS["gene"][genes]
+
+        # The person has got the parents
+        else:
+            mom_genes = get_genes(mother, one_gene, two_genes)
+            dad_genes = get_genes(father, one_gene, two_genes)
+            p_genes = inherit_prob(genes, mom_genes, dad_genes)
+
+        # Get the probability of appearing the trait
+        p_trait = PROBS["trait"][genes][has_trait]
+
+        # Calculate the joint probability
+        prob *= p_genes * p_trait
+
+    return prob
+
+
+def get_genes(person, one_set, two_set):
+    """
+    Returns number of the genes the person has
+    """
+    ans = 0
+    if person in two_set:
+        ans = 2
+    elif person in one_set:
+        ans = 1
+    return ans
+
+
+def inherit_prob(child_genes, mom_genes, dad_genes):
+    """
+    Calculates the probability that a child will inherit child_genes copies of a gene, given the number of mom_genes and dad_genes. Takes into account the probability of mutation.
+    """
+    mutation = PROBS["mutation"]
+
+    def pass_gen_prob(num_genes):
+        """
+        Calculates the probability that a parent's gene will be passed on to a child.
+        """
+        if num_genes == 2:
+            return 1 - mutation
+        if num_genes == 1:
+            return 0.5
+        return mutation
+
+    mom_pass = pass_gen_prob(mom_genes)
+    dad_pass = pass_gen_prob(dad_genes)
+
+    if child_genes == 2:
+        return mom_pass * dad_pass
+    if child_genes == 1:
+        return mom_pass * (1 - dad_pass) + dad_pass * (1 - mom_pass)
+    return (1 - mom_pass) * (1 - dad_pass)
 
 
 def update(probabilities, one_gene, two_genes, have_trait, p):
