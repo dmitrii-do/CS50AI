@@ -208,13 +208,13 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
             num_gene = 1
         elif person in two_genes:
             num_gene = 2
-        probabilities[person]["gene"][num_gene] = p
+        probabilities[person]["gene"][num_gene] += p
 
         # Change the trait probability
         if person in have_trait:
-            probabilities[person]["trait"][True] = p
+            probabilities[person]["trait"][True] += p
         else:
-            probabilities[person]["trait"][False] = p
+            probabilities[person]["trait"][False] += p
 
 
 def normalize(probabilities):
