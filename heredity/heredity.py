@@ -241,7 +241,3 @@ def normalize(probabilities):
 
 if __name__ == "__main__":
     main()
-# probabilities = {
-#         person: {"gene": {2: 0, 1: 0, 0: 0}, "trait": {True: 0, False: 0}}
-#         for person in people
-#     }
