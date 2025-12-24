@@ -269,26 +269,26 @@
         },
         "clang-format": {
             "hashes": [
-                "sha256:04ff3007e8d77f8232f2ba10a0553d3123423488ec789c1240222a2348f39eba",
-                "sha256:1915fc0e0161ddeedb0a83be3a15fe9d6a8529d0f1bbdb59ac1ee58328c5960b",
-                "sha256:217b4a9e55d2014797319d99a27acc4dccbe4ab8530f7b18e06e3fb0657aafa5",
-                "sha256:353f400124ae27b1d3f354e64bd1525d5a765f81adc155568c9332ed9ef291b6",
-                "sha256:3ef0603809f2684cb9eea8898f5cc5ac9e2d3ff3f49e3038aef05edf45286c8b",
-                "sha256:48d0bba35eb95781dab9f6c49fedf69399ad55469bff63153886950b499b5030",
-                "sha256:4fa43c8ecbf59b49c2eff6ced59e1c8adbd4643cb702393b3937bbbf32a7ab35",
-                "sha256:58ec6d955f1e8bf14a871562d961db114025a74bb990cdcbeb88d8563dd6f8a9",
-                "sha256:69b5ea0d2380c8a6318af4e4f306ccbecfee4d11e896dc59294e60b5f357e3e0",
-                "sha256:6d08f8a279061f63e4ecb30bcd3283b4fd8d1ba532e90be69cb7b270c450890e",
-                "sha256:80488d0cd061ac143b71cced03677b0059de4a7fbe69e38ad2c009c03febeb02",
-                "sha256:8e40d359abbd9a280b12b93ce8a6fb73c1f72c32c0a7d5c3843fccc848f6ab24",
-                "sha256:9f024d47ca28663d419d833ab0f950589ffcae40c191f31357533b59fbf9f6f3",
-                "sha256:b915e27db1e4e6ad71db6d34936efcf6f05e751cc32cde1e5596bb26b2dd4d1f",
-                "sha256:c57dd938d405c0594a97c7a78391fe96f1ebd76facf67fa305415b1a923a8748",
-                "sha256:c8728aa97cd7cce8c38f7d10c4cd7eca87530553dbf9bf17d7713a2b174a2ede",
-                "sha256:cbb6ca72d5198ffaf03fa997c6955f45a26929ba64c057dd7fce3fc7b2ec08a1",
-                "sha256:ee4f47db1c226d9ffd07a4c8a265d7f894149854d0fae72f89a854875bfdf67d"
+                "sha256:10f7d7004d70b5e03fd3f764fc19fae89cd38d68b3482162cb09cac47c12c7b0",
+                "sha256:143d2dffa71058d05ac5ad71321682e23d638bce22c8f2e3d01ed457d841a5f3",
+                "sha256:1aa10b3f647268361d08bf4f17ce70964b8d9c04d5539e7d8acbebd14dc4a49c",
+                "sha256:2f5883ca83f718d8c2272e98b3cbda422fec520824b5a1e335c631dc6d812da7",
+                "sha256:303d5fd53090422119136b1a458e98db429dedd5db0add50e70f885f8c95d82a",
+                "sha256:4dd0fee9eaee9915ba7fa08e60ee9ddfba1f754d10d71164482d9eb387c431f0",
+                "sha256:6a4b61a743dad5afc5e60be0c5c8f162f6cf27fff9eed56ec0bf65c2bcbd8a8d",
+                "sha256:6b9e0b45cfaf4a18336a6db4666dd6a6aae840e38b038e6d568a65f43ade007c",
+                "sha256:94de66c5eeca1270825348687d384750d91f1d8d12216b2df0aea892859be33a",
+                "sha256:9731aecf954651004f184347d0c589d4e91a39ccda21262ee17c60f80a4408b2",
+                "sha256:99369fe76526ba6be6d7a8093fee6cd266bbf5ce72597a0d79a4ce9a625b28cf",
+                "sha256:9a78fabba6b382866819b42a7b220d235a3baf6128a40fb7bd590c037f69879b",
+                "sha256:a7606da55e31ebf5b63dd75800392e6cca7c595a74100c2cebcda2d742130732",
+                "sha256:b81f1e909f5e7ef862a7818dc22b302a3ff407f3534e3395aa7ba26746cc890e",
+                "sha256:c2a044953efab5f7d0261f3a76aabc01358592faac1b73af38d8c83db6e91a69",
+                "sha256:d12b864b596b80810cdd7f97556c485dc09cfe2952503958535f01359e025fbb",
+                "sha256:e10a5dca18a04997ad55c082bc0759edc7e337b24a2373ded109634fde12662a",
+                "sha256:f447091c346027a09728a0a96128fe058419fe06cf200ccc3dc98bcd4399e351"
             ],
-            "version": "==21.1.7"
+            "version": "==21.1.8"
         },
         "cryptography": {
             "hashes": [
@@ -807,11 +807,11 @@
         },
         "soupsieve": {
             "hashes": [
-                "sha256:0cc76456a30e20f5d7f2e14a98a4ae2ee4e5abdc7c5ea0aafe795f344bc7984c",
-                "sha256:e2dd4a40a628cb5f28f6d4b0db8800b8f581b65bb380b97de22ba5ca8d72572f"
+                "sha256:4cf733bc50fa805f5df4b8ef4740fc0e0fa6218cf3006269afd3f9d6d80fd350",
+                "sha256:a11fe2a6f3d76ab3cf2de04eb339c1be5b506a8a47f2ceb6d139803177f85434"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==2.8"
+            "version": "==2.8.1"
         },
         "style50": {
             "hashes": [
