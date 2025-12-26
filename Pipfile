@@ -8,6 +8,7 @@ submit50 = "*"
 style50 = "*"
 pygame = "*"
 check50 = "*"
+pillow = "*"
 
 [dev-packages]
 
