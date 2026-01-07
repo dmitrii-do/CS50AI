@@ -111,9 +111,13 @@ class CrosswordCreator:
         """
         # raise NotImplementedError
         for v in self.domains:
-            for word in set(self.domains[v]):
+            # Collect inconsistent words into to_remove set
+            to_remove = set()
+            for word in self.domains[v]:
                 if len(word) != v.length:
-                    self.domains[v].remove(word)
+                    to_remove.add(word)
+            # Delete inconsistent words from domains
+            self.domains[v] -= to_remove
 
     def revise(self, x, y):
         """
