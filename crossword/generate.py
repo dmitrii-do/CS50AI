@@ -162,8 +162,27 @@ class CrosswordCreator:
         Return True if arc consistency is enforced and no domains are empty;
         return False if one or more domains end up empty.
         """
-        self.revise(Variable(0, 1, "down", 5), Variable(0, 1, "across", 3))
-        raise NotImplementedError
+        # raise NotImplementedError
+
+        # Create an initial list of all arcs
+        if arcs is None:
+            arcs = [
+                (x, y)
+                for x in self.crossword.variables
+                for y in self.crossword.neighbors(x)
+            ]
+
+        # Loop until arcs
+        while arcs:
+            # Check variable `x` arc consistent with variable `y`
+            x, y = arcs.pop()
+            if self.revise(x, y):
+                if not self.domains[x]:
+                    return False
+                # If revised add arcs (z, x) to 'arcs' for  all 'z' neighbors of 'x' except 'y'
+                for z in self.crossword.neighbors(x) - {y}:
+                    arcs.append((z, x))
+        return True
 
     def assignment_complete(self, assignment):
         """
