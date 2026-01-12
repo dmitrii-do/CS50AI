@@ -277,7 +277,20 @@ class CrosswordCreator:
         degree. If there is a tie, any of the tied variables are acceptable
         return values.
         """
-        raise NotImplementedError
+        # raise NotImplementedError
+
+        # Select all variables that have not yet been assigned a value
+        # and sort them by:
+        #   1) Minimum Remaining Values (MRV): size of their domain (ascending)
+        #   2) Degree heuristic: number of neighbors (descending)
+        # Return the first variable from this ordered list.
+        return sorted(
+            set(self.domains.keys()) - set(assignment.keys()),
+            key=lambda x: (
+                len(self.domains[x]),
+                -len(self.crossword.neighbors(x)),
+            ),
+        )[0]
 
     def backtrack(self, assignment):
         """
