@@ -132,11 +132,11 @@ class CrosswordCreator:
         revised = False
 
         # Check overlaps
-        overlap = self.crossword.overlaps[x, y]
+        overlap = self.crossword.overlaps[(x, y)]
 
         # If there is no any overlaps return False
         if overlap is None:
-            return revised
+            return False
 
         i, j = overlap
 
@@ -147,9 +147,9 @@ class CrosswordCreator:
                 if x_word[i] == y_word[j]:
                     match_found = True
                     break
-                if not match_found:
-                    self.domains[x].remove(x_word)
-                    revised = True
+            if not match_found:
+                self.domains[x].remove(x_word)
+                revised = True
 
         return revised
 
