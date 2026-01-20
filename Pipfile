@@ -9,6 +9,7 @@ style50 = "*"
 pygame = "*"
 check50 = "*"
 pillow = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
