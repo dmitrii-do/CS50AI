@@ -59,7 +59,94 @@ def load_data(filename):
     labels should be the corresponding list of labels, where each label
     is 1 if Revenue is true, and 0 otherwise.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    # Create a helper 'convert' to convert data
+    def convert(key, value):
+
+        to_integer = [
+            "Administrative",
+            "Informational",
+            "ProductRelated",
+            "OperatingSystems",
+            "Browser",
+            "Region",
+            "TrafficType",
+        ]
+
+        month = "Month"
+        months = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "June",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+        ]
+        what_month = dict(zip(months, range(12)))
+
+        to_float = [
+            "Administrative_Duration",
+            "Informational_Duration",
+            "ProductRelated_Duration",
+            "BounceRates",
+            "ExitRates",
+            "PageValues",
+            "SpecialDay",
+        ]
+        visitor_type = "VisitorType"
+
+        weekend_and_revenue = ["Weekend", "Revenue"]
+
+        if key in to_integer:
+            return int(value)
+
+        if key in to_float:
+            return float(value)
+
+        if key == month:
+            return what_month[value]
+
+        if key == visitor_type:
+            if value == "Returning_Visitor":
+                return 1
+            return 0
+
+        if key in weekend_and_revenue:
+            if value == "TRUE":
+                return 1
+            return 0
+
+    # Create two lists: 'evidences' and 'labels'
+    evidences = []
+    labels = []
+
+    # Read csv-file to csv.Dict-object
+    with open(filename, "r", encoding="UTF-8") as f:
+        rows = csv.DictReader(f)
+
+        # Get the fieldnames
+        headers = rows.fieldnames
+
+        # Convert each value and add it to the lists: 'evidences' or 'labels'
+        for row in rows:
+            visitor = []
+            for name in headers:
+                now = convert(name, row[name])
+                if name != "Revenue":
+                    visitor.append(now)
+                else:
+                    labels.append(now)
+            evidences.append(visitor)
+
+    # Return a tuple (evidences, labels)
+    return (evidences, labels)
 
 
 def train_model(evidence, labels):
