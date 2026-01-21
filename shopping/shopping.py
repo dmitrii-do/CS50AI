@@ -174,7 +174,27 @@ def evaluate(labels, predictions):
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    true_positive = 0
+    true_negative = 0
+    total_positive = 0
+    total_negative = 0
+
+    for actual, predicted in zip(labels, predictions):
+        if actual == 1:
+            total_positive += 1
+            if predicted == 1:
+                true_positive += 1
+        else:
+            total_negative += 1
+            if predicted == 0:
+                true_negative += 1
+
+    sensitivity = true_positive / total_positive
+    specificity = true_negative / total_negative
+
+    return (sensitivity, specificity)
 
 
 if __name__ == "__main__":
