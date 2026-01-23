@@ -180,7 +180,7 @@ class NimAI:
 
         # If 'epsilon' is True return a random action from 'actions'
         if epsilon and random.random() <= self.epsilon:
-            return random.choice(actions)
+            return random.choice(list(actions))
 
         # Else return the 'action' with the biggest 'q' value
         return max(q_values.items(), key=lambda x: x[1])[0]
