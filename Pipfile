@@ -9,7 +9,9 @@ style50 = "*"
 pygame = "*"
 check50 = "*"
 pillow = "*"
+opencv-python = "*"
 scikit-learn = "*"
+tensorflow = "*"
 
 [dev-packages]
 
