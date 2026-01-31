@@ -19,7 +19,7 @@ def main():
     if len(sys.argv) not in [2, 3]:
         sys.exit("Usage: python traffic.py data_directory [model.h5]")
 
-    # Get image arrays and labels for all image files
+    # Get img_file arrays and labels for all img_file files
     images, labels = load_data(sys.argv[1])
 
     # Split data into training and testing sets
@@ -35,7 +35,7 @@ def main():
     model.fit(x_train, y_train, epochs=EPOCHS)
 
     # Evaluate neural network performance
-    model.evaluate(x_test,  y_test, verbose=2)
+    model.evaluate(x_test, y_test, verbose=2)
 
     # Save model to file
     if len(sys.argv) == 3:
@@ -46,19 +46,34 @@ def main():
 
 def load_data(data_dir):
     """
-    Load image data from directory `data_dir`.
+    Load img_file data from directory `data_dir`.
 
     Assume `data_dir` has one directory named after each category, numbered
     0 through NUM_CATEGORIES - 1. Inside each category directory will be some
-    number of image files.
+    number of img_file files.
 
     Return tuple `(images, labels)`. `images` should be a list of all
-    of the images in the data directory, where each image is formatted as a
+    of the images in the data directory, where each img_file is formatted as a
     numpy ndarray with dimensions IMG_WIDTH x IMG_HEIGHT x 3. `labels` should
     be a list of integer labels, representing the categories for each of the
     corresponding `images`.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    # Create lists for images and labels
+    images = []
+    labels = []
+
+    # Get all images and labels from data-set in loop
+    for label in range(NUM_CATEGORIES):
+        subdir = os.path.join(data_dir, str(label))
+        for img_file in os.listdir(subdir):
+            img_path = os.path.join(subdir, img_file)
+            img = cv2.imread(img_path)
+            if img is not None:
+                images.append(cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT)))
+                labels.append(label)
+    return images, labels
 
 
 def get_model():
@@ -67,7 +82,26 @@ def get_model():
     `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+    model = tf.keras.models.Sequential(
+        [
+            tf.keras.layers.Conv2D(
+                32,
+                (3, 3),
+                activation="relu",
+                input_shape=(IMG_WIDTH, IMG_HEIGHT, 3),
+            ),
+            tf.keras.layers.MaxPooling2D((2, 2)),
+            tf.keras.layers.Flatten(),
+            tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax"),
+        ]
+    )
+
+    model.compile(
+        optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"]
+    )
+
+    return model
 
 
 if __name__ == "__main__":
