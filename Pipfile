@@ -8,11 +8,12 @@ submit50 = "*"
 style50 = "*"
 pygame = "*"
 check50 = "*"
-pillow = "*"
 opencv-python = "*"
 scikit-learn = "*"
-tensorflow = "*"
 nltk = "*"
+pillow = "*"
+tensorflow = "*"
+transformers = "*"
 
 [dev-packages]
 
