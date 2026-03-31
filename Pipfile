@@ -13,7 +13,8 @@ scikit-learn = "*"
 nltk = "*"
 pillow = "*"
 tensorflow = "*"
-transformers = "*"
+tf-keras = "*"
+transformers = "==4.40.0"
 
 [dev-packages]
 
