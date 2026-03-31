@@ -59,7 +59,9 @@ def get_color_for_attention_score(attention_score):
     given `attention_score`. Each value should be in the range [0, 255].
     """
     # TODO: Implement this function
-    raise NotImplementedError
+    # raise NotImplementedError
+    gray = int(attention_score * 255)
+    return (gray, gray, gray)
 
 
 def visualize_attentions(tokens, attentions):
